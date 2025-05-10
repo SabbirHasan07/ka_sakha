@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Donor {
+  id        String   @id @default(cuid())
+  name      String
+  bkash     String
+  amount    Int?
+  status    Status   @default(PENDING)
+  createdAt DateTime @default(now())
+}
+
+enum Status {
+  PENDING
+  PAID
+}
+
+model Stats {
+  id            String @id @default("main")
+  totalAmount   Int
+  monthlyAmount Int
+}
+
